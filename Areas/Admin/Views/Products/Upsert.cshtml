@@ -1,0 +1,106 @@
+﻿@model ProductVM
+
+
+<div class="card shadow border-0 my-4">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+	<div class="row">
+		<dvi class="col-12 text-center">
+			<h2 class="text-white py-2">@(Model.Products.Id != 0 ? "Update" : "Create") Product</h2>
+		</dvi>
+	</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" class="row" enctype="multipart/form-data">
+			<!--以下兩個的用處是讓 Controller 可以檢查該 Id 或 ImageUrl 是否被使用過，-->
+			<input asp-for="Products.Id" hidden/>
+			<input asp-for="Products.ImageUrl" hidden />
+			<div class="row">
+				<div class="col-10">
+					<div class="border p-3">
+						<!--asp-for 會套用我們資料表中的資料型態，只要給予指定的欄位名稱即可-->
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.Title" class="form-control border-0 shadow" />
+							<label asp-for="Products.Title" class="ms-2"></label>
+							<!--用於顯示錯誤訊息-->
+							<span asp-validation-for="Products.Title" class="text-danger"></span>
+						</div>
+						<div class="py-2 col-12">
+							<label asp-for="Products.Description" class="ms-2 text-muted">Description</label>
+							<textarea asp-for="Products.Description" class="form-control border-0 shadow"></textarea>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.ISBN" class="form-control border-0 shadow" />
+							<label asp-for="Products.ISBN" class="ms-2">ISBN</label>
+							<span asp-validation-for="Products.ISBN" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.Author" class="form-control border-0 shadow" />
+							<label asp-for="Products.Author" class="ms-2">Author</label>
+							<span asp-validation-for="Products.Author" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.ListPrice" class="form-control border-0 shadow" />
+							<label asp-for="Products.ListPrice" class="ms-2">ListPrice</label>
+							<span asp-validation-for="Products.ListPrice" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.Price" class="form-control border-0 shadow" />
+							<label asp-for="Products.Price" class="ms-2">Price</label>
+							<span asp-validation-for="Products.Price" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.Price50" class="form-control border-0 shadow" />
+							<label asp-for="Products.Price50" class="ms-2">Price50</label>
+							<span asp-validation-for="Products.Price50" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Products.Price100" class="form-control border-0 shadow" />
+							<label asp-for="Products.Price100" class="ms-2">Price100</label>
+							<span asp-validation-for="Products.Price100" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<select asp-for="@Model.Products.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+								<option disabled selected>--Select Category--</option>
+							</select>
+							<label asp-for="Products.CategoryId" class="ms-2"></label>
+							<span asp-validation-for="Products.CategoryId" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input type="file" name="file" class="form-control border-0 shadow" />
+							<label asp-for="Products.ImageUrl" class="ms-2"></label>
+						</div>
+
+						<div class="row pt-2">
+							<div class="col-6 col-md-3">
+								<button type="submit" class="btn btn-primary form-control">@(Model.Products.Id != 0 ? "Update" : "Create")</button>
+							</div>
+							<div class="col-6 col-md-3">
+								<a asp-controller="Products" asp-action="Index" class="btn btn-outline-primary border form-control">Back To List</a>
+							</div>
+						</div><a href="d:\aps.net_project\kaiweb\.gitignore">d:\aps.net_project\kaiweb\.gitignore</a>
+					</div>
+				</div>
+				<div class="col-2">
+					<img src="@Model.Products.ImageUrl" width="100%" style="border-radius: 5px; border: solid 1px"/>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+
+<!--可以直接在用戶端做及時的資料驗證-->
+@section Scripts{
+	<!--這邊用了 TinyMCE 的 textarea 的模組讓內部的功能可以和我們一般的word一樣-->
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			plugins: 'anchor autolink charmap codesample emoticons lists table visualblocks wordcount',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight | numlist bullist indent outdent | emoticons charmap',
+		});
+	</script>
+	@{
+	<partial name="_ValidationScriptsPartial"/>
+	}
+}

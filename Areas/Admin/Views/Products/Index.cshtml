@@ -1,0 +1,41 @@
+﻿<!--要使用Controller傳過來的資料，就必須宣告該資料的型態-->
+@model List<Products>
+
+<div class="card shadow border-0 my-4">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+		<div class="row">
+			<dvi class="col-12 text-center">
+				<h2 class="text-white py-2">Products List</h2>
+			</dvi>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<!--建立新類別，跳轉到建立的頁面-->
+			<div class="col-6 text-end">
+				<a asp-controller="Products" asp-action="Upsert" class="btn btn-primary">
+					<i class="bi bi-plus-square"></i>  Create New Products
+				</a>
+			</div>
+		</div>
+		<!--這邊用了 AJAX 取得 JSON 格式的資料-->
+		<table id="tblData" class="table table-bordered table-striped" style="width: 100%">
+			<thead>
+				<tr>
+					<th>title</th>
+					<th>IBSN</th>
+					<th>Price</th>
+					<th>Author</th>
+					<th>Category</th>
+					<th></th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="~/js/product.js"></script>
+}

@@ -1,0 +1,58 @@
+﻿<!--要使用Controller傳過來的資料，就必須宣告該資料的型態-->
+@model List<Category>
+
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+		<div class="row">
+			<dvi class="col-12 text-center">
+				<h2 class="text-white py-2">Category List</h2>
+			</dvi>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<!--建立新類別，跳轉到建立的頁面-->
+			<div class="col-6 text-end">
+				<a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+					<i class="bi bi-plus-square"></i>  Create New Category
+				</a>
+			</div>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Category Name</th>
+					<th>Display Order</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<!--這邊我們使用了 C# 中的 foreach 函示將資料渲染到頁面中-->
+				<!--OrderBy(u=>u.DisplayOrder)讓資料的排序方式根據DisplayOrder由小到大排列-->
+				@foreach (var obj in Model.OrderBy(u => u.DisplayOrder))
+				{
+					<tr>
+						<td>
+							@obj.Name
+						</td>
+						<td>
+							@obj.DisplayOrder
+						</td>
+						<td>
+							<div class="w-60 btn-group" role="group">
+								<a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-1">
+									<i class="bi bi-pencil-square"></i>編輯
+								</a>
+								<a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-1">
+									<i class="bi bi-trash3-fill"></i>刪除
+								</a>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
